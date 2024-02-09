@@ -2,23 +2,11 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { Link } from 'react-router-dom';
-// import { useDispatch, useSelector,useNavigate  } from 'react-redux';
-// import { userLogout } from '../redux/userAuth.js';
-// import cookie from 'js-cookie'
-// import { Button } from 'react-bootstrap';
+
 
 
 function Header() {
 
-  // const isAuthenticated = useSelector((state) => state.user.isAuthenticated)
-  // const dispatch = useDispatch();
-  // const navigation = useNavigate();
-  
-  // const handleLogOut = ()=>{ 
-  //   dispatch(userLogout());
-  //   cookie.remove("token");
-  //   navigation("/signin");
-  // }
 
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
@@ -30,9 +18,6 @@ function Header() {
             <Nav.Link as={Link} to={"/signin"}>Signin</Nav.Link>
             <Nav.Link as={Link} to={'/register'}>Register</Nav.Link>
           </Nav>
-          {/* <Nav className="ms-auto">
-            {isAuthenticated ?  <Button onClick={handleLogOut} variant="danger">signOut</Button> : <Nav.Link as={Link} to={"/signin"}><Button  variant="danger">signIn</Button></Nav.Link>}
-          </Nav> */}
         </Navbar.Collapse>
       </Container>
     </Navbar>
