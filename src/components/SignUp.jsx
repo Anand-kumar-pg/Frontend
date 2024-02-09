@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import { userAuthSuccess } from '../redux/userAuth';
 import { useDispatch } from 'react-redux';
-import axios from 'axios';
+import instance from 'axios';
 
 function SignUp() {
 
@@ -43,7 +43,7 @@ function SignUp() {
         } else {
             setValidated(true);
             try {
-                let res = await axios
+                let res = await instance
                     .post('https://signin-register.onrender.com/api/user/register', {
                         ...inputs
                     });
