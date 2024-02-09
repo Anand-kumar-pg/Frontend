@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import instance from 'axios'
+import axios from 'axios';
 
 function SignIn() {
 
@@ -24,7 +24,8 @@ function SignIn() {
         } else {
             setValidated(true);
             try {
-                let res = await instance.post('http://localhost:5000/api/user/signin', {
+                let res = await axios
+                .post('https://signin-register.onrender.com/api/user/signin', {
                     email,
                     password
                 });
