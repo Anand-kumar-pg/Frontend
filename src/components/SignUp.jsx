@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import { userAuthSuccess } from '../redux/userAuth';
 import { useDispatch } from 'react-redux';
-import instance from 'axios';
+import instance from '../axios';
 
 function SignUp() {
 
@@ -15,6 +15,7 @@ function SignUp() {
         email: '',
         password: ''
     });
+
     const dispatch = useDispatch();
 
     const buttonStyle = {
@@ -44,14 +45,14 @@ function SignUp() {
             setValidated(true);
             try {
                 let res = await instance
-                    .post('https://signin-register.onrender.com/api/user/register', {
+                    .post('/user/register', {
                         ...inputs
                     });
                 if (res.data.success) {
                     dispatch(userAuthSuccess({ user: res.data.user, isAuthenticated: res.data.isAuthenticated, token: res.data.token }))
                     toast(res.data.message);
                     await new Promise((resolve) => setTimeout(resolve, 3000));
-                    navigate('/signin');
+                    navigate('/');
                 } else {
                     toast.error(res.data.message);
                 }

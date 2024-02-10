@@ -5,13 +5,19 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import instance from 'axios';
+import instance from '../axios';
+import { useDispatch } from 'react-redux';
+import { userAuthSuccess } from '../redux/userAuth';
+
+
+
 function SignIn() {
 
     const [validated, setValidated] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
 
     const handleSubmit = async (event) => {
@@ -24,15 +30,16 @@ function SignIn() {
             setValidated(true);
             try {
                 let res = await instance
-                .post('https://signin-register.onrender.com/api/user/signin', {
+                .post('/user/signin', {
                     email,
                     password
                 });
                 console.log(res);
                 if (res.data.success) {
+                    dispatch(userAuthSuccess({ user: res.data.user, isAuthenticated: res.data.isAuthenticated, token: res.data.token }))
                     toast(res.data.message);
                     await new Promise((resolve) => setTimeout(resolve, 3000));
-                    navigate('/home');
+                    navigate('/');
                 } else {
                     toast.error(res.data.message);
                 }

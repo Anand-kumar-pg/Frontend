@@ -1,23 +1,38 @@
+import { Button } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-
+import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
+import { userLogout } from '../redux/userAuth';
 
 
 function Header() {
 
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const isAuthenticated = useSelector((state) => state.user.isAuthenticated)
+
+  const handleLogout=() => {
+    dispatch(userLogout())
+    Cookies.remove("token")
+    navigate("/signin")
+  }
 
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
-        <Navbar.Brand href="">React-Express</Navbar.Brand>
+        <Navbar.Brand as={Link} to={"/"}>Home</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link as={Link} to={"/signin"}>Signin</Nav.Link>
-            <Nav.Link as={Link} to={'/register'}>Register</Nav.Link>
+
+            {isAuthenticated ? <Button variant='danger' onClick={handleLogout}>LogOut</Button> : (<> <Nav.Link as={Link} to={"/signin"}>Signin</Nav.Link>
+              <Nav.Link as={Link} to={'/register'}>Register</Nav.Link></>)}
           </Nav>
+
         </Navbar.Collapse>
       </Container>
     </Navbar>

@@ -12,15 +12,13 @@ function App() {
 
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated)
 
-
   return (
     <Router>
       <Header/>
       <Routes>       
-        <Route path='/signin' element={<ProtectedRoute isAuthenticated={isAuthenticated}> <SignIn /></ProtectedRoute> } /> 
-        <Route path="/register" element={<SignUp />} />
-        <Route path="/home" element={<Home />} />
-
+        <Route path='/signin' element={<SignIn/>}/>
+        <Route path="/register" element={<SignUp/>}/>
+        <Route path="/" element={<ProtectedRoute isAuthenticated={isAuthenticated}> <Home/> </ProtectedRoute>}/>
       </Routes>
     </Router>
   );
